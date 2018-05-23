@@ -19,9 +19,9 @@ SECTION	.text
 	global _ft_isprint
 
 _ft_isprint:
-			cmp rdi, 32
+			cmp rdi, 0x20
 			jl cnd_fails	; if (c < 32) { cnd_fails() }
-			cmp rdi, 126
+			cmp rdi, 0x7e
 			jg cnd_fails	; if (c > 126) { cnd_fails() }
 			mov rax, 0x1	; return (1);
 			ret

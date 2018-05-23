@@ -19,17 +19,17 @@ SECTION .text
 	global _ft_isalpha
 
 _ft_isalpha:
-					cmp rdi, 65
+					cmp rdi, 'A'
 					jl second_cnd	; if (c < 'A') { second_cnd(); }
-					cmp rdi, 90
+					cmp rdi, 'Z'
 					jg second_cnd	; if (c > 'Z') { second_cnd(); }
 					mov rax, 0x1	; return (1);
 					ret
 
 second_cnd:
-					cmp rdi, 97
+					cmp rdi, 'a'
 					jl cnd_fails	; if (c < 'a') { cnd_fails(); }
-					cmp rdi, 122
+					cmp rdi, 'z'
 					jg cnd_fails	; if (c > 'z') { cnd_fails(); }
 					mov rax, 0x1	; return (1);
 					ret

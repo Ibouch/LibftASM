@@ -1,31 +1,32 @@
 ;	************************************************************************** */
 ;	                                                                           */
 ;	                                                       :::      ::::::::   */
-;	  ft_isascii.s                                       :+:      :+:    :+:   */
+;	  ft_toupper.s                                       :+:      :+:    :+:   */
 ;	                                                   +:+ +:+         +:+     */
 ;	  By: ibouchla <ibouchla@student.42.fr>          +#+  +:+       +#+        */
 ;	                                               +#+#+#+#+#+   +#+           */
-;	  Created: 2015/11/25 16:47:42 by ibouchla          #+#    #+#             */
-;	  Updated: 2016/02/03 19:40:12 by ibouchla         ###   ########.fr       */
+;	  Created: 2015/11/28 17:50:39 by ibouchla          #+#    #+#             */
+;	  Updated: 2016/02/03 19:48:48 by ibouchla         ###   ########.fr       */
 ;	                                                                           */
 ;	************************************************************************** */
 
-;	int	ft_isascii(int c)
+;	int	ft_toupper(int c)
 ;	{
-;		return (c >= 0 && c <= 127);
+;		return (c >= 'a' && c <= 'z' ? c - 32 : c);
 ;	}
 
 SECTION	.text
-	global _ft_isascii
+	global _ft_toupper
 
-_ft_isascii:
-			cmp rdi, 0x0
-			jl cnd_fails	; if (c < 0) { cnd_fails() }
-			cmp rdi, 0x7f
-			jg cnd_fails	; if (c > 127) { cnd_fails() }
-			mov rax, 0x1	; return (1);
+_ft_toupper:
+			cmp rdi, 'a'
+			jl cnd_fails	; if (c < 'a') { cnd_fails(); }
+			cmp rdi, 'z'
+			jg cnd_fails	; if (c > 'z') { cnd_fails(); }
+			sub rdi, 0x20	; c -= 32
+			mov rax, rdi	; return (c);
 			ret
 
 cnd_fails:
-			mov rax, 0x0	; return (0);
+			mov rax, rdi	; return (c);
 			ret

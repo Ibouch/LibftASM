@@ -21,7 +21,11 @@ SRC_NAME =	ft_bzero.s \
 			ft_isdigit.s \
 			ft_isalnum.s \
 			ft_isascii.s \
-			ft_isprint.s
+			ft_isprint.s \
+			ft_toupper.s \
+			ft_tolower.s \
+			ft_strlen.s \
+			ft_strncpy.s
 
 CREATE_LIB = ar rc $(NAME) $(OBJET)
 

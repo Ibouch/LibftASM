@@ -19,9 +19,9 @@ SECTION .text
 	global _ft_isdigit
 
 _ft_isdigit:
-			cmp rdi, 48
+			cmp rdi, '0'
 			jl cnd_fails	; if (c < '0') { cnd_fails(); }
-			cmp rdi, 57
+			cmp rdi, '9'
 			jg cnd_fails	; if (c > '9') { cnd_fails(); }
 			mov rax, 0x1	; return (1);
 			ret
