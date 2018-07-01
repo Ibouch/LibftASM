@@ -5,19 +5,15 @@
 ;			((unsigned char *)s)[n] = 0;
 ;	}
 
-SECTION		.data
-			
-
 SECTION		.text
 			global _ft_bzero
-			extern printf
+			extern _ft_memset
 
 _ft_bzero:
-			mov ecx, esp		;
-			mov edx, [esp + 4]	;
-			xor eax, eax		;
-_debut:
-			inc eax				;
-			test eax, 2048		;
-;			byte 0
-;			jb debut			;
+			push rbp
+			mov rbp, rsp
+			mov rdx, rsi
+			xor rsi, rsi	; 2nd arg = 0
+			call _ft_memset
+			leave
+			ret

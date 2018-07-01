@@ -11,5 +11,8 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 char	*ft_strncpy(char * dst, const char * src, size_t len);
+size_t	ft_strlen(const char *s);
+size_t	ft_strnlen(const char *s, size_t maxlen);
+void	*ft_memset(void *b, int c, size_t len);
 
 #endif

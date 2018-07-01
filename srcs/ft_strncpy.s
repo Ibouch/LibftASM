@@ -26,6 +26,41 @@
 ;	}
 
 SECTION	.text
-	global _ft_strncpy
+		global _ft_strncpy
+		extern _ft_strnlen
 
 _ft_strncpy:
+					push rbp
+					mov rbp, rsp
+					;
+
+					push rdi
+					mov rdi, rsi
+					push rsi
+					mov rsi, rdx
+					call _ft_strnlen
+					;
+					pop rsi
+					pop rdi
+					lea r8, [rdi]
+					mov rcx, rax
+					;
+					cld
+					rep movsb
+					;
+					sub rdx, rax
+					cmp rdx, 0x00
+					jg fill_zero_memset
+					mov byte [rdi], 0x00
+					mov rax, r8
+					leave
+					ret
+
+fill_zero_memset:
+					mov rcx, rdx
+					xor al, al
+					cld
+					rep stosb
+					mov rax, r8
+					leave
+					ret

@@ -1,16 +1,22 @@
 
 
 SECTION	.text
-	global _ft_strlen
+		global _ft_strlen
 
 _ft_strlen:
-			cld
-			mov rcx, 42
-		;	mov rdi, 
-			;mov rdi, 1,
-			;mov rsi, msg
-		;	mov rdx, 1
-			; start = ptr
-			; while (*ptr != 0)
-			;	++ptr
-			; return (ptr - start)
+			lea r8, [rdi]
+			xor al, al
+			repne scasb
+			sub rdi, r8
+			;cmp rdi, 0x00
+			;jg sub_null_terminated_string
+			;xor rax, rax
+			sub rdi, 0x01
+			mov rax, rdi
+			ret
+
+;sub_null_terminated_string:
+;							sub rdi, 0x01
+;							mov rax, rdi
+;							ret
+; SEGFAULT ON NULL RDI

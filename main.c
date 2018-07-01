@@ -49,6 +49,7 @@ static void		ft_hexdump(void *ptr, size_t len, uint8_t base)
 	uint64_t	i;
 
 	i = 0;
+	//ft_bzero(ptr, len);
 	while (i < len)
 	{
 		if ((i % base) == 0)
@@ -65,16 +66,26 @@ static void		ft_hexdump(void *ptr, size_t len, uint8_t base)
 
 int				main(int ac, const char **av)
 {
-	void	*ptr = malloc(14);
+	int 	len = 20;
+	void	*ptr = malloc(len);
 
 	(void)ac;
 	(void)av;
-	//ft_bzero(ptr, 2048);
+
+	/*
 	printf("ret isalpha : [%d]\n", ft_isalpha(100));
 	printf("ret isdigit : [%d]\n", ft_isdigit(9));
 	printf("ret isalnum : [%d]\n", ft_isalnum('['));
 	printf("ret toupper : [%d]\n", ft_toupper('A'));
-	printf("ret strncpy : [%s]\n", ft_strncpy(ptr, "HELLO WORLD\0", 2));
-	//ft_hexdump(ptr, 128, 16);
+	printf("ft_strlen : [%zu] && strlen : [%zu]\n", ft_strlen(""), strlen("Hello\n\0\n"));
+	//ft_hexdump(ft_strncpy((char*)ptr, "aaQQQQQQQQ", 3), len, 16);
+	//ft_hexdump(ft_memset(ptr, -1, len + 1000), len, 16);
+
+	*/
+	char *str = "WELCOME WORLD";
+	size_t n = 10;
+	printf("FT_strncpy : [%s] | strncpy : [%s]\n", ft_strncpy((char*)ptr, str, n), strncpy((char*)ptr, str, n));
+	
+	//ft_hexdump(ft_strncpy((char*)ptr, "Hello World", 10000000), 64, 16);
 	return (0);
 }
