@@ -27,7 +27,8 @@ SRC_NAME =	ft_bzero.s \
 			ft_strlen.s \
 			ft_strncpy.s \
 			ft_memset.s \
-			ft_strnlen.s
+			ft_strnlen.s \
+			ft_memcpy.s
 
 CREATE_LIB = ar rc $(NAME) $(OBJET)
 
