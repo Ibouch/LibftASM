@@ -15,6 +15,6 @@ _ft_strnlen:
 			ret
 
 sub_null_char:
-			sub rdi, 0x01
+			dec rdi
 			mov rax, rdi
 			ret

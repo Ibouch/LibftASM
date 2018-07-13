@@ -10,10 +10,18 @@ SECTION		.text
 			extern _ft_memset
 
 _ft_bzero:
-			push rbp
-			mov rbp, rsp
-			mov rdx, rsi
-			xor rsi, rsi	; 2nd arg = 0
-			call _ft_memset
-			leave
-			ret
+
+	_INIT_:
+					push rbp
+					mov rbp, rsp
+					push rdx
+					push rsi
+	Memset_zero:
+					mov rdx, rsi
+					xor rsi, rsi
+					call _ft_memset
+	Return:
+					pop rsi
+					pop rdx
+					leave
+					ret

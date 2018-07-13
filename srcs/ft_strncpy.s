@@ -32,9 +32,9 @@ SECTION	.text
 _ft_strncpy:
 					push rbp
 					mov rbp, rsp
-					;
-
+					push rbx
 					push rdi
+					;
 					mov rdi, rsi
 					push rsi
 					mov rsi, rdx
@@ -42,7 +42,7 @@ _ft_strncpy:
 					;
 					pop rsi
 					pop rdi
-					lea r8, [rdi]
+					lea rbx, [rdi]
 					mov rcx, rax
 					;
 					cld
@@ -50,17 +50,19 @@ _ft_strncpy:
 					;
 					sub rdx, rax
 					cmp rdx, 0x00
-					jg fill_zero_memset
+					jg fill_null_char
 					mov byte [rdi], 0x00
-					mov rax, r8
+					mov rax, rbx
+					pop rbx
 					leave
 					ret
 
-fill_zero_memset:
+fill_null_char:
 					mov rcx, rdx
 					xor al, al
 					cld
 					rep stosb
 					mov rax, r8
+					pop rbx
 					leave
 					ret
