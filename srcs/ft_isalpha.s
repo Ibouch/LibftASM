@@ -19,21 +19,25 @@ SECTION .text
 	global _ft_isalpha
 
 _ft_isalpha:
-					cmp rdi, 'A'
-					jl second_cnd	; if (c < 'A') { second_cnd(); }
-					cmp rdi, 'Z'
-					jg second_cnd	; if (c > 'Z') { second_cnd(); }
-					mov rax, 0x1	; return (1);
-					ret
+				push rbp			; Save a copy of old stackframe
+				mov rbp, rsp		; Move stack pointer in rbp
 
-second_cnd:
-					cmp rdi, 'a'
-					jl cnd_fails	; if (c < 'a') { cnd_fails(); }
-					cmp rdi, 'z'
-					jg cnd_fails	; if (c > 'z') { cnd_fails(); }
-					mov rax, 0x1	; return (1);
-					ret
-
-cnd_fails:
-					mov rax, 0x0	; return (0);
-					ret
+				cmp rdi, 'A'		; if (rdi < 'A')
+				jl _second_cnd		; Then jump to _second_cnd label
+				cmp rdi, 'Z'		; if (rdi > 'Z')
+				jg _second_cnd		; Then jump to _second_cnd label
+				jmp _cnd_success	; Else jump to _cnd_success label
+_second_cnd:
+				cmp rdi, 'a'		; if (rdi < 'a')
+				jl _cnd_fails		; Then jump to _cnd_fails label
+				cmp rdi, 'z'		; if (rdi > 'z')
+				jg _cnd_fails		; Then jump to _cnd_fails label
+				jmp _cnd_success	; Else jump to _cnd_success label
+_cnd_fails:
+				mov rax, 0x0		; return (0)
+				leave				; Mov rsp, rbp and pop rbp
+				ret					; Return
+_cnd_success:
+				mov rax, 0x1		; return (1)
+				leave				; Mov rsp, rbp and pop rbp
+				ret					; Return

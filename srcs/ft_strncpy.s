@@ -27,42 +27,28 @@
 
 SECTION	.text
 		global _ft_strncpy
-		extern _ft_strnlen
 
 _ft_strncpy:
-					push rbp
-					mov rbp, rsp
-					push rbx
-					push rdi
-					;
-					mov rdi, rsi
-					push rsi
-					mov rsi, rdx
-					call _ft_strnlen
-					;
-					pop rsi
-					pop rdi
-					lea rbx, [rdi]
-					mov rcx, rax
-					;
-					cld
-					rep movsb
-					;
-					sub rdx, rax
-					cmp rdx, 0x00
-					jg fill_null_char
-					mov byte [rdi], 0x00
-					mov rax, rbx
-					pop rbx
-					leave
-					ret
+			push	rbp
+			mov		rbp, rsp
 
-fill_null_char:
-					mov rcx, rdx
-					xor al, al
-					cld
-					rep stosb
-					mov rax, r8
-					pop rbx
-					leave
-					ret
+			push	r15
+			lea		r15, [rdi]
+			mov		rcx, rdx
+			cld
+_cpy_loop:
+			cmp		byte [rsi], 0x00
+			je		_fill_zero
+			cmp		rcx, 0x00
+			je		_return
+			movsb
+			dec		rcx
+			jmp		_cpy_loop
+_fill_zero:
+			xor		al, al
+			rep		stosb			; Repeat while rcx > 0 {*rdi = al; ++rdi; --rcx}
+_return:
+			mov		rax, r15
+			pop		r15
+			leave
+			ret

@@ -16,17 +16,23 @@
 ;	}
 
 SECTION	.text
-	global _ft_toupper
+	global _ft_tolower
 
-_ft_toupper:
-			cmp rdi, 'A'
-			jl cnd_fails	; if (c < 'A') { cnd_fails(); }
-			cmp rdi, 'Z'
-			jg cnd_fails	; if (c > 'Z') { cnd_fails(); }
-			add rdi, 0x20	; c += 32
-			mov rax, rdi	; return (c);
-			ret
+_ft_tolower:
+			push rbp		; Save a copy of old stackframe
+			mov rbp, rsp	; Move stack pointer in rbp
 
-cnd_fails:
-			mov rax, rdi	; return (c);
-			ret
+			cmp rdi, 'A'	; if (rdi < 'A')
+			jl _cnd_fails	; Then jump to _cnd_fails label
+			cmp rdi, 'Z'	; if (rdi > 'Z')
+			jg _cnd_fails	; Then jump to _cnd_fails label
+			add rdi, 0x20	; rdi += 32
+			mov rax, rdi	; return (rdi)
+
+			leave			; Mov rsp, rbp and pop rbp
+			ret				; Return
+
+_cnd_fails:
+			mov rax, rdi	; return (rdi)
+			leave			; Mov rsp, rbp and pop rbp
+			ret				; Return

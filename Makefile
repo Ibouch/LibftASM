@@ -39,7 +39,7 @@ CREATE_LIB = ar rc $(NAME) $(OBJET)
 
 ID_LIB = ranlib $(NAME)
 
-CC_FLAGS = nasm -f macho64
+CC_FLAGS = nasm -f macho64 #-F dwarf -g
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

@@ -19,13 +19,19 @@ SECTION	.text
 	global _ft_isprint
 
 _ft_isprint:
-			cmp rdi, 0x20
-			jl cnd_fails	; if (c < 32) { cnd_fails() }
-			cmp rdi, 0x7e
-			jg cnd_fails	; if (c > 126) { cnd_fails() }
-			mov rax, 0x1	; return (1);
-			ret
+				push rbp		; Save a copy of old stackframe
+				mov rbp, rsp	; Move stack pointer in rbp
 
-cnd_fails:
-			mov rax, 0x0	; return (0);
-			ret
+				cmp rdi, 32		; if (rdi < 32)
+				jl _cnd_fails	; Then jump to _cnd_fails label
+				cmp rdi, 126	; if (rdi > 126)
+				jg _cnd_fails	; Then jump to _cnd_fails label
+
+				mov rax, 0x1	; return (1)
+				leave			; Mov rsp, rbp and pop rbp
+				ret				; Return
+
+_cnd_fails:
+				mov rax, 0x0	; return (0)
+				leave			; Mov rsp, rbp and pop rbp
+				ret				; Return

@@ -4,31 +4,32 @@ SECTION	.text
 	extern _ft_strlen
 
 _ft_strcat:
+			push rbp				; Save a copy of old stackframe
+			mov rbp, rsp			; Move stack pointer in rbp
 
-	_INIT_:
-					push rbp
-					mov rbp, rsp
-					push rbx				; Store rbx register
-					push rcx				; Store rcx register
-					push r8					; Store r8 register
-	Get_offset:
-					mov rbx, rdi			; Store original rdi
-					call _ft_strlen			; Get rdi length
-					mov r8, rax				; Store rdi length in r9 register
-					mov rdi, rsi			; Move rsi in ft_strlen argument
-					call _ft_strlen			; Get rsi length
-					mov rdi, rbx			; Restore original rdi
-					add rdi, r8				; Rdi = rdi + ft_strlen(rdi)
-					mov rcx, rax			; Rcx = ft_strlen(rsi)
-	Loop_statement:
-					cld
-					rep movsb
-	Append_zero:
-					mov byte [rdi], 0x00	; Append '\0' to rdi
-	Return:
-					mov rax, rbx			; Restore original rdi
-					pop r8
-					pop rcx
-					pop rbx
-					leave
-					ret
+			push rsi				; Caller-save register
+			push rcx				; Caller-save register
+			push rbx				; Caller-save register
+			push rdi				; Caller-save register
+
+			lea rbx, [rel rdi]		; Store rdi original address
+			call _ft_strlen			; ft_strlen(rdi)
+			push rax				; Caller-save register
+			lea rdi, [rel rsi]		; Move rsi address in ft_strlen argument
+			call _ft_strlen			; ft_strlen(rsi)
+			mov rcx, rax			; rcx = ft_strlen(rsi)
+			lea rdi, [rel rbx]		; Restore rdi original address
+			pop rax					; Restore caller-save register
+			add rdi, rax			; rdi += ft_strlen(rdi)
+
+			cld						; (Clear Direction Flag, DF = 0) to make the operation left to right
+			rep movsb				; Repeat while rcx > 0 {*rdi = *rsi; ++rdi; ++rsi; --rcx}
+			mov byte [rdi], 0x00	; Append '\0' at the end of rdi register
+_return:
+			pop rdi					; Restore caller-save register
+			pop rbx					; Restore caller-save register
+			pop rcx					; Restore caller-save register
+			pop rsi					; Restore caller-save register
+			lea rax, [rel rdi]		; Return rdi original address
+			leave					; Mov rsp, rbp and pop rbp
+			ret						; Return
