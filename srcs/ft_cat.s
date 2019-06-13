@@ -1,12 +1,25 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_cat.s                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ibouchla <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/06/13 17:26:12 by ibouchla          #+#    #+#              #
+#    Updated: 2019/06/13 17:26:15 by ibouchla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+; void	ft_cat(int fd)
 
 %define MACH_SYSCALL(nb)	0x2000000 | nb
 %define STDOUT				1
 %define READ				3
 %define WRITE				4
-%define B_SIZE				2048
+%define B_SIZE				1024
 
 SECTION	.bss
-buffer:	resb	B_SIZE								; reserve 2048 bytes
+buffer:	resb	B_SIZE								; reserve 1024 bytes
 
 SECTION	.text
 				global _ft_cat
@@ -24,21 +37,20 @@ _read_fd_loop:
 				lea		rdi, [rel buffer]			; ft_bzero(&buffer, ..)
 				mov		rsi, B_SIZE					; ft_bzero(&buffer, B_SIZE)
 				call	_ft_bzero					; Call ft_bzero with rdi, rsi
-
 				mov		rdi, r8						; read(fd, .., ..)
 				lea		rsi, [rel buffer]			; read(fd, &buffer, ..)
 				mov		rdx, B_SIZE					; read(fd, &buffer, B_SIZE)
 				mov		rax, MACH_SYSCALL(READ)		; Store the syscall identifier in rax
 				syscall								; Read syscall interruption
 				cmp		rax, 0x00					; if (!(rax > 0))
-				jng		_read_EOF					; Then jump to _read_EOF label
+				jng		_return						; Then jump to _return label
 _write_buffer:
 				mov		rdi, STDOUT					; write(STDOUT, &buffer, ..)
 				mov 	rdx, rax					; write(STDOUT, &buffer, rax)
 				mov 	rax, MACH_SYSCALL(WRITE)	; Store the syscall identifier in rax
 				syscall								; Write syscall interruption
 				jmp		_read_fd_loop				; Jump to _ead_fd_loop label
-_read_EOF:
+_return:
 				pop		r8							; Restore caller-save register
 				pop		rax							; Restore caller-save register
 				pop		rdx							; Restore caller-save register
