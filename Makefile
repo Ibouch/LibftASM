@@ -10,13 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libfts.a
+NAME = libft.a
 
 INC_PATH = -I include
 
 SRC_PATH = srcs
 
 SRC_NAME =	ft_bzero.s \
+			ft_strcat.s \
 			ft_isalpha.s \
 			ft_isdigit.s \
 			ft_isalnum.s \
@@ -24,22 +25,21 @@ SRC_NAME =	ft_bzero.s \
 			ft_isprint.s \
 			ft_toupper.s \
 			ft_tolower.s \
-			ft_strlen.s \
-			ft_strncpy.s \
-			ft_strcpy.s \
-			ft_memset.s \
-			ft_strnlen.s \
-			ft_memcpy.s \
 			ft_puts.s \
-			ft_strcat.s \
+			ft_strlen.s \
+			ft_memset.s \
+			ft_memcpy.s \
 			ft_strdup.s \
-			ft_cat.s
+			ft_cat.s \
+			ft_strcpy.s \
+			ft_strncpy.s \
+			ft_strnlen.s
 
 CREATE_LIB = ar rc $(NAME) $(OBJET)
 
 ID_LIB = ranlib $(NAME)
 
-CC_FLAGS = nasm -f macho64 #-F dwarf -g
+CC_FLAGS = nasm -f macho64
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

@@ -33,8 +33,8 @@ char	*ft_strdup(const char *s1);
 
 void	ft_cat(int fd);
 
-char	*ft_strncpy(char * dst, const char * src, size_t len);
 char	*ft_strcpy(char * dst, const char * src);
+char	*ft_strncpy(char * dst, const char * src, size_t len);
 size_t	ft_strnlen(const char *s, size_t maxlen);
 
 #endif

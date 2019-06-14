@@ -24,3 +24,7 @@
 •	cat		--> [OK]
 
 [ PART BONUS ]
+
+•	strcpy	--> [OK]
+•	strncpy	--> [OK]
+•	strnlen	--> [OK]

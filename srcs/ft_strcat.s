@@ -34,7 +34,7 @@ _ft_strcat:
 			add		rdi, rax			; rdi += ft_strlen(rdi)
 			cld							; (Clear Direction Flag, DF = 0) to make the operation left to right
 			rep		movsb				; Repeat while rcx > 0 {*rdi = *rsi; ++rdi; ++rsi; --rcx}
-			mov		byte [rdi], '\0'	; Append '\0' at the end of rdi register
+			mov		byte [rdi], 0x00	; Append '\0' at the end of rdi register
 _return:
 			pop		rdi					; Restore caller-save register
 			pop		rbx					; Restore caller-save register
