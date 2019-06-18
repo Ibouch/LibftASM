@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibouchla <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/17 13:35:41 by ibouchla          #+#    #+#             */
+/*   Updated: 2019/06/17 13:35:43 by ibouchla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -631,7 +643,7 @@ void	test_strncpy(void)
 	char	*d3_bis = calloc(1, 1024);
 	char	*d4_bis = calloc(1, 1024);
 
-	show_header("strcpy");
+	show_header("strncpy");
 
 	/* Start test [01] */
 	printf("\nStart Test [01] :\n");
@@ -720,8 +732,31 @@ void	test_strnlen(void)
 	free((void *)s4);
 }
 
+void	test_putstr(void)
+{
+	show_header("putstr");
+	ft_putstr("");
+	ft_putstr("Hello World from putstr!\n");
+}
+
+void	test_isspace(void)
+{
+	int	valid = true;
+
+	show_header("isspace");
+
+	for (uint16_t i = 0; i < 256; i++)
+	{
+		if (ft_isspace(i) != isspace(i))
+			valid = false;
+	}
+	show_result(valid);
+}
+
 /*
-**	 Main tests
+******************************************
+************** Main tests ****************
+******************************************
 */
 
 int		main(void)
@@ -729,32 +764,31 @@ int		main(void)
 /*
 **	Part 1 - Fonctions simples de la libc
 */
-	//test_bzero();
-	//test_strcat();
-	//test_isalpha();
-	//test_isdigit();
-	//test_isalnum();
-	//test_isascii();
-	//test_isprint();
-	//test_toupper();
-	//test_tolower();
-	//test_puts();
+	test_bzero();
+	test_strcat();
+	test_isalpha();
+	test_isdigit();
+	test_isalnum();
+	test_isascii();
+	test_isprint();
+	test_toupper();
+	test_tolower();
+	test_puts();
 /*
 **	Part 2 - Fonctions simples mais un peu moins de la libc
 */
-	//test_strlen();
-	//test_memset();
-	//test_memcpy();
-	//test_strdup();
-/*
-**	 Part 3 - Cat
-*/
-	//test_cat();
+	test_strlen();
+	test_memset();
+	test_memcpy();
+	test_strdup();
+
 /*
 **	Part Bonus
 */
 	test_strcpy();
 	test_strncpy();
 	test_strnlen();
+	test_putstr();
+	test_isspace();
 	return (0);
 }

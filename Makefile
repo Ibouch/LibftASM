@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libfts.a
 
 INC_PATH = -I include
 
@@ -33,7 +33,9 @@ SRC_NAME =	ft_bzero.s \
 			ft_cat.s \
 			ft_strcpy.s \
 			ft_strncpy.s \
-			ft_strnlen.s
+			ft_strnlen.s \
+			ft_putstr.s \
+			ft_isspace.s
 
 CREATE_LIB = ar rc $(NAME) $(OBJET)
 

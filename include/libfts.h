@@ -6,7 +6,7 @@
 /*   By: ibouchla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 17:36:05 by ibouchla          #+#    #+#             */
-/*   Updated: 2019/06/13 17:36:13 by ibouchla         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:53:27 by ibouchla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ char	*ft_strdup(const char *s1);
 
 void	ft_cat(int fd);
 
+int		ft_isspace(int c);
 char	*ft_strcpy(char * dst, const char * src);
 char	*ft_strncpy(char * dst, const char * src, size_t len);
 size_t	ft_strnlen(const char *s, size_t maxlen);
+void	ft_putstr(char const *s);
 
 #endif
